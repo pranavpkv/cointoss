@@ -1,0 +1,53 @@
+import pygame
+import random
+import sys
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the screen
+WIDTH, HEIGHT = 800, 800
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Coin Toss Animation")
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GOLD = (255, 215, 0)
+
+# Coin properties
+coin_size = 100
+coin_x = (WIDTH - coin_size) // 2
+coin_y = (HEIGHT - coin_size) // 2
+coin_thickness = 5
+
+# Coin toss animation frames
+coin_frames = [
+    pygame.image.load('tail.png').convert_alpha(),
+    pygame.image.load('head.png').convert_alpha()
+]
+
+# Function to animate the coin toss
+def coin_toss_animation():
+    for i in range(30):
+        screen.fill(WHITE)
+        coin_flip = random.choice(coin_frames)
+        screen.blit(coin_flip, (coin_x, coin_y))
+        pygame.display.flip()
+        pygame.time.delay(50)
+
+# Main game loop
+running = True
+while running:
+    # Event handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                # Perform the coin toss animation
+                coin_toss_animation()
+
+# Quit Pygame
+pygame.quit()
+sys.exit()
